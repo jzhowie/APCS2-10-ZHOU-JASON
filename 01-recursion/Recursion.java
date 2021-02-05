@@ -4,6 +4,7 @@ public class Recursion {
     if (reverseTest.equals(reverse(reverse(reverseTest)))) {
       System.out.println("Reverse Test: OK");
     }
+    System.out.println(countNoDoubleLetterWords(5, ""));
   }
 
   public static String reverse(String s) {
@@ -12,8 +13,20 @@ public class Recursion {
   }
 
   public static long countNoDoubleLetterWords(int length, String word) {
-    return (long)0.0; //placeholder
+    if (length <= 0) {
+  		return 1;
+  	}
+  	else {
+      long counter = 0;
+  		for (char i = 'a'; i <= 'z'; i++) {
+  			if (word.length() < 1 || word.charAt(word.length() - 1) != i) {
+  				counter += countNoDoubleLetterWords(length-1, word + i);
+        }
+		  }
+    return counter;
+	 }
   }
+
 
   public static double sqrt(double n) {
     return 0.0; //placeholder
