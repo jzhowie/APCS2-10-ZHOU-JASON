@@ -4,7 +4,11 @@ public class Recursion {
     if (reverseTest.equals(reverse(reverse(reverseTest)))) {
       System.out.println("Reverse Test: OK");
     }
-    System.out.println(countNoDoubleLetterWords(5, ""));
+    System.out.println(countNoDoubleLetterWords(3, ""));
+
+    double sqrtTest = 21093182.21809809;
+    System.out.println(sqrt(sqrtTest));
+    System.out.println(Math.sqrt(sqrtTest));
   }
 
   public static String reverse(String s) {
@@ -29,6 +33,17 @@ public class Recursion {
 
 
   public static double sqrt(double n) {
-    return 0.0; //placeholder
+    return sqrt(n, 1);
+  }
+
+  public static double sqrt(double n, double guess) {
+    System.out.println(Math.abs(Math.pow(guess, 2)-n) / n);
+    
+    if (Math.abs(Math.pow(guess, 2)-n) / n <= 0.00001) {
+      return guess;
+    }
+    else {
+      return sqrt(n, (n / guess + guess) / 2);
+    }
   }
 }
