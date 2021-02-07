@@ -1,15 +1,25 @@
-public class Recursion {
-  public static void main(String[] args) {
-    String reverseTest = "Kalinka";
-    if (reverseTest.equals(reverse(reverse(reverseTest)))) {
-      System.out.println("Reverse Test: OK");
-    }
-    System.out.println(countNoDoubleLetterWords(3, ""));
+// import java.util.*;
+// import java.text.DecimalFormat;
 
-    double sqrtTest = 21093182.21809809;
-    System.out.println(sqrt(sqrtTest));
-    System.out.println(Math.sqrt(sqrtTest));
-  }
+public class Recursion {
+  // public static void main(String[] args) {
+  //   int tests = 10000;
+  //   String reverseTest = "Kalinka";
+  //   if (reverseTest.equals(reverse(reverse(reverseTest)))) {
+  //     System.out.println("Reverse Test: OK");
+  //   }
+  //   System.out.println(countNoDoubleLetterWords(3, ""));
+  //   Random rng = new Random();
+  //   DecimalFormat formatter = new DecimalFormat("0.0000000000");
+  //   for (int i = 0; i < tests; i++) {
+  //     double temp = rng.nextDouble();
+  //     double error = Math.abs((sqrt(temp) - Math.sqrt(temp)) / Math.sqrt(temp));
+  //     if (error > 0.000005) {
+  //       System.out.println(temp);
+  //     }
+  //     formatter.format(error);
+  //   }
+  // }
 
   public static String reverse(String s) {
     if (s.length() == 0) return s;
@@ -37,8 +47,6 @@ public class Recursion {
   }
 
   public static double sqrt(double n, double guess) {
-    System.out.println(Math.abs(Math.pow(guess, 2)-n) / n);
-    
     if (Math.abs(Math.pow(guess, 2)-n) / n <= 0.00001) {
       return guess;
     }
