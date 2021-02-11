@@ -1,4 +1,4 @@
-// TODO: toString(), solve(), countSolutions(), add & remove Queen()
+// TODO: solve(), countSolutions()
 // https://konstantinnovation.github.io/apcs.html#20210210
 // ISSUES: TBD
 public class QueenBoard {
@@ -49,6 +49,22 @@ public void removeQueen(int r, int c) { // remember to switch back
 		board[diagonals][i]--;
 		diagonals--;
 	}
+}
+
+public String toString() {
+	String temp = "";
+	for (int i = 0; i < board.length; i++) {
+		for (int j = 0; j < board[i].length; j++) {
+			if (board[i][j] == QUEEN) {
+				temp += "Q ";
+			}
+			else {
+				temp += "_ ";
+			}
+		}
+		temp += '\n';
+	}
+	return temp;
 }
 
 public QueenBoard(int size) {
