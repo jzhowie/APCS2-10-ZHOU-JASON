@@ -7,6 +7,7 @@ private int[][] board;
 private int QUEEN = -1;
 
 public boolean addQueen(int r, int c) { //remember to switch back
+	// CONDITIONS FOR FALSE: SQUARE IS != 0
 	board[r-1][c-1] = QUEEN;
 	for (int i = c; i < board[r-1].length; i++) {
 		board[r-1][i]++;
@@ -24,6 +25,25 @@ public boolean addQueen(int r, int c) { //remember to switch back
 		diagonals--;
 	}
 	return true;
+}
+
+public void removeQueen(int r, int c) { // remember to switch back
+	board[r-1][c-1] = 0;
+	for (int i = c; i < board[r-1].length; i++) {
+		board[r-1][i]--;
+	}
+
+	int diagonals = r;
+	for (int i = c; diagonals < board.length && i < board[r-1].length; i++) {
+		board[diagonals][i]--;
+		diagonals++;
+	}
+
+	diagonals = r - 2;
+	for (int i = c; diagonals > -1 && i < board[r-1].length; i++) {
+		board[diagonals][i]--;
+		diagonals--;
+	}
 }
 
 public QueenBoard(int size) {
