@@ -11,6 +11,18 @@ public boolean addQueen(int r, int c) { //remember to switch back
 	for (int i = c; i < board[r-1].length; i++) {
 		board[r-1][i]++;
 	}
+
+	int diagonals = r - 1;
+	for (int i = c; diagonals < board.length && i < board[r-1].length; i++) {
+		diagonals++;
+		board[diagonals][i]++;
+	}
+
+	diagonals = r - 1;
+	for (int i = c; diagonals < -1 && i < board[r-1].length; i++) {
+		diagonals--;
+		board[diagonals][i]++;
+	}
 	return true;
 }
 
