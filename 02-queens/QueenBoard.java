@@ -1,4 +1,4 @@
-// TODO: countSolutions()
+// TODO:
 // https://konstantinnovation.github.io/apcs.html#20210210
 // ISSUES:
 
@@ -113,7 +113,10 @@ private int solverCounter(int row, int col) {
 			for (int i = 1; i < board.length + 1; i++) {
 				counter += solverCounter(i, col+1);
 			}
-			if (row == 0 && col == 0) return counter;
+			if (row == 0 && col == 0) {
+				board = new int[board.length][board.length];
+				return counter;
+			}
 			removeQueen(row, col);
 		}
 	}
