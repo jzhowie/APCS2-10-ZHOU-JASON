@@ -73,7 +73,6 @@ public boolean solve() {
 
 private boolean solver(int row, int col) {
 	if (col > board.length) return true;
-	else if (row > board.length) return false;
 	else {
 		if ((row == 0 && col == 0) || addQueen(row, col)) {
 			for (int i = 1; i < board.length + 1; i++) {
@@ -81,10 +80,11 @@ private boolean solver(int row, int col) {
 					return true;
 				}
 			}
+			if (row == 0 && col == 0) return false;
 			removeQueen(row, col);
 		}
+		return false;
 	}
-	return false;
 }
 
 public QueenBoard(int size) {
