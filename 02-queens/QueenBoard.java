@@ -86,7 +86,10 @@ private boolean solver(int row, int col) {
 			for (int i = 1; i < board.length + 1; i++) {
 				if (solver(i, col+1)) return true;
 			}
-			if (row == 0 && col == 0) return false;
+			if (row == 0 && col == 0) {
+				board = new int[board.length][board.length];
+				return false;
+			}
 			removeQueen(row, col);
 		}
 		return false;
