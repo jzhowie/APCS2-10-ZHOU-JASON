@@ -1,13 +1,13 @@
-// TODO: solve(), countSolutions()
+// TODO: countSolutions()
 // https://konstantinnovation.github.io/apcs.html#20210210
-// ISSUES: TBD
+// ISSUES:
+
 public class QueenBoard {
 
 private int[][] board;
 private int QUEEN = -1;
 
-public boolean addQueen(int r, int c) { //remember to switch back
-	// CONDITIONS FOR FALSE: SQUARE IS != 0
+private boolean addQueen(int r, int c) {
 	if (board[r-1][c-1] != 0) {
 		return false;
 	}
@@ -32,7 +32,7 @@ public boolean addQueen(int r, int c) { //remember to switch back
 	}
 }
 
-public void removeQueen(int r, int c) { // remember to switch back
+private void removeQueen(int r, int c) {
 	board[r-1][c-1] = 0;
 	for (int i = c; i < board[r-1].length; i++) {
 		board[r-1][i]--;
@@ -67,11 +67,27 @@ public String toString() {
 	return temp;
 }
 
-public QueenBoard(int size) {
-	board = new int[size][size];
+public boolean solve() {
+	return solver(0, 0);
 }
 
-public int[][] get() { // tester
-	return board;
+private boolean solver(int row, int col) {
+	if (col > board.length) return true;
+	else if (row > board.length) return false;
+	else {
+		if ((row == 0 && col == 0) || addQueen(row, col)) {
+			for (int i = 1; i < board.length + 1; i++) {
+				if (solver(i, col+1)) {
+					return true;
+				}
+			}
+			removeQueen(row, col);
+		}
+	}
+	return false;
+}
+
+public QueenBoard(int size) {
+	board = new int[size][size];
 }
 }
