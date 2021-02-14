@@ -76,15 +76,32 @@ private boolean solver(int row, int col) {
 	else {
 		if ((row == 0 && col == 0) || addQueen(row, col)) {
 			for (int i = 1; i < board.length + 1; i++) {
-				if (solver(i, col+1)) {
-					return true;
-				}
+				if (solver(i, col+1)) return true;
 			}
 			if (row == 0 && col == 0) return false;
 			removeQueen(row, col);
 		}
 		return false;
 	}
+}
+
+public int countSolutions() {
+	return solverCounter(0, 0);
+}
+
+private int solverCounter(int row, int col) {
+	int counter = 0;
+	if (col > board.length) counter++;
+	else {
+		if ((row == 0 && col == 0) || addQueen(row, col)) {
+			for (int i = 1; i < board.length + 1; i++) {
+				counter += solverCounter(i, col+1);
+			}
+			if (row == 0 && col == 0) return counter;
+			removeQueen(row, col);
+		}
+	}
+	return counter;
 }
 
 public QueenBoard(int size) {
