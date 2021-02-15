@@ -1,7 +1,3 @@
-// TODO:
-// https://konstantinnovation.github.io/apcs.html#20210210
-// ISSUES:
-
 public class QueenBoard {
 
 private int[][] board;
@@ -114,7 +110,9 @@ private int solverCounter(int row, int col) {
 	else {
 		if ((row == 0 && col == 0) || addQueen(row, col)) {
 			for (int i = 1; i < board.length + 1; i++) {
-				counter += solverCounter(i, col+1);
+				if (i == 1 || col+1 <= board.length) {
+					counter += solverCounter(i, col+1);
+				}
 			}
 			if (row == 0 && col == 0) {
 				board = new int[board.length][board.length];
