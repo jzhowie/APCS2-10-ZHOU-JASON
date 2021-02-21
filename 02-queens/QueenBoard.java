@@ -51,12 +51,10 @@ public String toString() {
 	String temp = "";
 	for (int i = 0; i < board.length; i++) {
 		for (int j = 0; j < board[i].length; j++) {
-			if (board[i][j] == QUEEN) {
-				temp += "Q ";
-			}
-			else {
-				temp += "_ ";
-			}
+			if (board[i][j] == QUEEN) temp += "Q";
+			else temp += "_";
+
+			if (j != board.length - 1) temp += " ";
 		}
 		temp += '\n';
 	}
@@ -72,15 +70,15 @@ public boolean solve() {
 		}
 	}
 
-	return solver(0, 0);
+	return solve(0, 0);
 }
 
-private boolean solver(int row, int col) {
+private boolean solve(int row, int col) {
 	if (col > board.length) return true;
 	else {
 		if ((row == 0 && col == 0) || addQueen(row, col)) {
 			for (int i = 1; i < board.length + 1; i++) {
-				if (solver(i, col+1)) return true;
+				if (solve(i, col+1)) return true;
 			}
 			if (row == 0 && col == 0) {
 				board = new int[board.length][board.length];
@@ -101,17 +99,17 @@ public int countSolutions() {
 		}
 	}
 
-	return solverCounter(0, 0);
+	return countSolutions(0, 0);
 }
 
-private int solverCounter(int row, int col) {
+private int countSolutions(int row, int col) {
 	int counter = 0;
 	if (col > board.length) counter++;
 	else {
 		if ((row == 0 && col == 0) || addQueen(row, col)) {
 			for (int i = 1; i < board.length + 1; i++) {
 				if (i == 1 || col+1 <= board.length) {
-					counter += solverCounter(i, col+1);
+					counter += countSolutions(i, col+1);
 				}
 			}
 			if (row == 0 && col == 0) {
