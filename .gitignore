@@ -1,5 +1,8 @@
 # Compiled class file
 *.class
+*.xml
+*.iml
+*.dat
 
 # Log file
 *.log
