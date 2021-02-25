@@ -52,19 +52,21 @@ public void setAnimate(boolean b){
 }
 
 public static void clearTerminal(){
-	//erase terminal
-	System.out.println("\033[2J");
+	System.out.println("\033[2J"); //erase terminal
 }
 public static void gotoTop(){
-	//go to top left of screen
-	System.out.println("\033[1;1H");
+	System.out.println("\033[1;1H"); //go to top left of screen
 }
 
-/*Return the string that represents the maze.
-   It should look like the text file with some characters replaced.
- */
 public String toString(){
-	return "WRITE THIS METHOD";
+	String temp = "";
+	for (int i = 0; i < maze.length; i++) {
+		for (int j = 0; j < maze[i].length; j++) {
+			temp += maze[i][j];
+		}
+		if (i != maze.length - 1) temp += '\n';
+	}
+	return temp;
 }
 
 /*Wrapper Solve Function returns the helper function
