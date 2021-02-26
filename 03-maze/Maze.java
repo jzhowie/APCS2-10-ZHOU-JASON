@@ -39,7 +39,7 @@ public Maze(String filename) throws FileNotFoundException {
 	animate = false;
 }
 
-private void wait(int millis){
+private void wait(int millis) {
 	try {
 		Thread.sleep(millis);
 	}
@@ -47,7 +47,7 @@ private void wait(int millis){
 	}
 }
 
-public void setAnimate(boolean b){
+public void setAnimate(boolean b) {
 	animate = b;
 }
 
@@ -58,7 +58,7 @@ public static void gotoTop(){
 	System.out.println("\033[1;1H"); //go to top left of screen
 }
 
-public String toString(){
+public String toString() {
 	String temp = "";
 	for (int i = 0; i < maze.length; i++) {
 		for (int j = 0; j < maze[i].length; j++) {
@@ -75,8 +75,14 @@ public String toString(){
  */
 public int solve(){
 	//only clear the terminal if you are running animation
-	if(animate) {
+	if (animate) {
 		clearTerminal();
+	}
+
+	for (int i = 0; i < maze.length; i++) {
+		for (int j = 0; j < maze[i].length; j++) {
+			if (maze[i][j] == 'S') return solve(i, j, 0);
+		}
 	}
 	//start solving at the location of the s.
 	//return solve(???,???);
@@ -97,12 +103,22 @@ public int solve(){
     All visited spots that were not part of the solution are changed to '.'
     All visited spots that are part of the solution are changed to '@'
  */
-private int solve(int row, int col){         //you can add more parameters since this is private
-	//automatic animation! You are welcome.
+private int solve(int row, int col, int counter) {
 	if(animate) {
 		gotoTop();
 		System.out.println(this);
 		wait(50);
+	}
+
+	if (maze[row][col] == 'E') return counter;
+	else if (maze[row][col] == '#') return 0;
+	else if (maze[row][col] == '@') return 0;
+	else {
+		maze[row][col] = '@';
+		solve(row + 1, col, counter + 1);
+		solve(row - 1, col, counter + 1);
+		solve(row, col + 1, counter + 1);
+		solve(row, col - 1, counter + 1);
 	}
 
 	//COMPLETE SOLVE
