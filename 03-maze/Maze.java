@@ -1,5 +1,5 @@
-//TODO: Everything
-//ISSUES:
+//TODO: Solve
+//ISSUES: For some reason solve isn't returning when it shoudl
 //NOTES:
 
 import java.util.*;
@@ -84,9 +84,7 @@ public int solve(){
 			if (maze[i][j] == 'S') return solve(i, j, 0);
 		}
 	}
-	//start solving at the location of the s.
-	//return solve(???,???);
-	return 0;
+	return -1;
 }
 
 /*
@@ -109,19 +107,40 @@ private int solve(int row, int col, int counter) {
 		System.out.println(this);
 		wait(50);
 	}
-
-	if (maze[row][col] == 'E') return counter;
-	else if (maze[row][col] == '#') return 0;
-	else if (maze[row][col] == '@') return 0;
+	System.out.println("(row " + row + ", col " + col + ", counter " + counter +  ")");
+	if (maze[row][col] == 'E') {
+		return counter;
+	}
+	else if (maze[row][col] == '#') {
+		return 0;
+	}
+	else if (maze[row][col] == '@') {
+		return 0;
+	}
+	else if (maze[row][col] == '.') {
+		return 0;
+	}
 	else {
 		maze[row][col] = '@';
-		solve(row + 1, col, counter + 1);
-		solve(row - 1, col, counter + 1);
-		solve(row, col + 1, counter + 1);
-		solve(row, col - 1, counter + 1);
+		if (solve(row + 1, col, counter + 1) == counter + 1) {
+			return counter;
+		}
+		if (solve(row - 1, col, counter + 1) == counter + 1) {
+			return counter;
+		}
+		if (solve(row, col + 1, counter + 1) == counter + 1) {
+			return counter;
+		}
+		if (solve(row, col - 1, counter + 1) == counter + 1) {
+			return counter;
+		}
+		// solve(row + 1, col, counter + 1);
+		// solve(row - 1, col, counter + 1);
+		// solve(row, col + 1, counter + 1);
+		// solve(row, col - 1, counter + 1);
+		maze[row][col] = '.';
+		counter--;
 	}
-
-	//COMPLETE SOLVE
-	return -1;     //so it compiles
+	return -1;
 }
 }
