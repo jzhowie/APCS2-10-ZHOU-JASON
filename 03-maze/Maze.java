@@ -1,5 +1,5 @@
 //TODO: Solve
-//ISSUES: For some reason solve isn't returning when it shoudl
+//ISSUES: Returning too late
 //NOTES:
 
 import java.util.*;
@@ -7,7 +7,8 @@ import java.io.*;
 public class Maze {
 
 private char[][] maze;
-private boolean animate;        //false by default
+private boolean animate;
+private int sol;
 
 /*Constructor loads a maze text file, and sets animate to false by default.
    When the file is not found then:
@@ -37,6 +38,13 @@ public Maze(String filename) throws FileNotFoundException {
 		maze[i] = bee.get(i).toCharArray();
 	}
 	animate = false;
+}
+
+private static String colorize(String s){
+	s = s.replace("@", "\033[32m\033[49m@\033[0m");
+	s = s.replace("#", "\033[37m\033[47m#\033[0m");
+	s = s.replace("E", "\033[35m\033[49mE\033[0m");
+	return s;
 }
 
 private void wait(int millis) {
@@ -74,14 +82,15 @@ public String toString() {
    Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
  */
 public int solve(){
-	//only clear the terminal if you are running animation
 	if (animate) {
 		clearTerminal();
 	}
 
 	for (int i = 0; i < maze.length; i++) {
 		for (int j = 0; j < maze[i].length; j++) {
-			if (maze[i][j] == 'S') return solve(i, j, 0);
+			if (maze[i][j] == 'S') {
+				return solve(i, j, 0);
+			}
 		}
 	}
 	return -1;
@@ -104,42 +113,23 @@ public int solve(){
 private int solve(int row, int col, int counter) {
 	if(animate) {
 		gotoTop();
-		System.out.println(this);
+		System.out.println(colorize(this.toString()));
 		wait(50);
 	}
-	System.out.println("(row " + row + ", col " + col + ", counter " + counter +  ")");
 	if (maze[row][col] == 'E') {
-		return counter;
+		sol = counter;
+		return sol;
 	}
-	else if (maze[row][col] == '#') {
-		return 0;
-	}
-	else if (maze[row][col] == '@') {
-		return 0;
-	}
-	else if (maze[row][col] == '.') {
-		return 0;
+	else if (maze[row][col] == '#' || maze[row][col] == '@' || maze[row][col] == '.') {
+		return -1;
 	}
 	else {
 		maze[row][col] = '@';
-		if (solve(row + 1, col, counter + 1) == counter + 1) {
-			return counter;
+		if (solve(row + 1, col, counter + 1) > 0 || solve(row - 1, col, counter + 1) > 0 || solve(row, col + 1, counter + 1) > 0 || solve(row, col - 1, counter + 1) > 0) {
+			return sol;
 		}
-		if (solve(row - 1, col, counter + 1) == counter + 1) {
-			return counter;
-		}
-		if (solve(row, col + 1, counter + 1) == counter + 1) {
-			return counter;
-		}
-		if (solve(row, col - 1, counter + 1) == counter + 1) {
-			return counter;
-		}
-		// solve(row + 1, col, counter + 1);
-		// solve(row - 1, col, counter + 1);
-		// solve(row, col + 1, counter + 1);
-		// solve(row, col - 1, counter + 1);
 		maze[row][col] = '.';
-		counter--;
+
 	}
 	return -1;
 }
