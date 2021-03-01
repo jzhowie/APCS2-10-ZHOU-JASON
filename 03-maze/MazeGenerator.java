@@ -1,3 +1,4 @@
+//TODO: TRUE RANDOMNESS
 public class MazeGenerator {
 public static void generate(char[][] maze, int rows, int cols, int startrow, int startcol) {
 	if (startrow == 0 || startrow == maze.length - 1 || startcol == 0 || startcol == maze[0].length - 1) {
@@ -18,6 +19,42 @@ public static void generate(char[][] maze, int rows, int cols, int startrow, int
 		generate(maze, 0, 0, startrow, startcol - 1);
 		generate(maze, 0, 0, startrow + 1, startcol);
 		generate(maze, 0, 0, startrow - 1, startcol);
+	}
+}
+
+public static void generateAmazing(char[][] maze, int rows, int cols, int startrow, int startcol, char direction) {
+	if (startrow == 0 || startrow == maze.length - 1 || startcol == 0 || startcol == maze[0].length - 1) {
+		return;
+	}
+	if (adjacent(maze, startrow, startcol) > 1) {
+		return;
+	}
+	maze[startrow][startcol] = ' ';
+	if (direction == 'e' && Math.random() >= 0.300) {
+		generateAmazing(maze, 0, 0, startrow, startcol + 1, 'e');
+	}
+	if (direction == 'w' && Math.random() >= 0.300) {
+		generateAmazing(maze, 0, 0, startrow, startcol - 1, 'w');
+	}
+	if (direction == 's' && Math.random() >= 0.300) {
+		generateAmazing(maze, 0, 0, startrow + 1, startcol, 's');
+	}
+	if (direction == 'n' && Math.random() >= 0.300) {
+		generateAmazing(maze, 0, 0, startrow - 1, startcol, 'n');
+	}
+	else {
+		if (Math.random() >= 0.500) {
+			generateAmazing(maze, 0, 0, startrow + 1, startcol, 's');
+			generateAmazing(maze, 0, 0, startrow - 1, startcol, 'n');
+			generateAmazing(maze, 0, 0, startrow, startcol + 1, 'e');
+			generateAmazing(maze, 0, 0, startrow, startcol - 1, 'w');
+		}
+		else {
+			generateAmazing(maze, 0, 0, startrow, startcol + 1, 'e');
+			generateAmazing(maze, 0, 0, startrow, startcol - 1, 'w');
+			generateAmazing(maze, 0, 0, startrow + 1, startcol, 's');
+			generateAmazing(maze, 0, 0, startrow - 1, startcol, 'n');
+		}
 	}
 }
 
