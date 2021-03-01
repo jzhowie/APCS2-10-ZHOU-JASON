@@ -7,10 +7,18 @@ public static void generate(char[][] maze, int rows, int cols, int startrow, int
 		return;
 	}
 	maze[startrow][startcol] = ' ';
-	generate(maze, 0, 0, startrow + 1, startcol);
-	generate(maze, 0, 0, startrow - 1, startcol);
-	generate(maze, 0, 0, startrow, startcol + 1);
-	generate(maze, 0, 0, startrow, startcol - 1);
+	if (Math.random() >= 0.500) {
+		generate(maze, 0, 0, startrow + 1, startcol);
+		generate(maze, 0, 0, startrow - 1, startcol);
+		generate(maze, 0, 0, startrow, startcol + 1);
+		generate(maze, 0, 0, startrow, startcol - 1);
+	}
+	else {
+		generate(maze, 0, 0, startrow, startcol + 1);
+		generate(maze, 0, 0, startrow, startcol - 1);
+		generate(maze, 0, 0, startrow + 1, startcol);
+		generate(maze, 0, 0, startrow - 1, startcol);
+	}
 }
 
 private static int adjacent(char[][] maze, int row, int col) {
@@ -38,7 +46,7 @@ public static String toString(char[][] maze) {
 		}
 		if (i != maze.length - 1) temp += '\n';
 	}
-	return temp;
+	return colorize(temp);
 }
 
 public static String colorize(String s){
