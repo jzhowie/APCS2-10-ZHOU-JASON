@@ -9,7 +9,6 @@ public static void generate(char[][] maze, int rows, int cols, int startrow, int
 
 	ArrayList<Character> directions = new ArrayList<Character>(Arrays.asList(new Character[] {'n', 's', 'e', 'w'}));
 	Collections.shuffle(directions);
-	System.out.println(directions.toString());
 	for (int i = 0; i < directions.size(); i++) {
 		if (directions.get(i) == 'n') generate(maze, 0, 0, startrow - 1, startcol);
 		else if (directions.get(i) == 's') generate(maze, 0, 0, startrow + 1, startcol);
@@ -45,18 +44,10 @@ public static void generateAmazing(char[][] maze, int rows, int cols, int startr
 
 private static int adjacent(char[][] maze, int row, int col) {
 	int counter = 0;
-	if (maze[row+1][col] == ' ') {
-		counter++;
-	}
-	if (maze[row-1][col] == ' ') {
-		counter++;
-	}
-	if (maze[row][col+1] == ' ') {
-		counter++;
-	}
-	if (maze[row][col-1] == ' ') {
-		counter++;
-	}
+	if (maze[row+1][col] == ' ') counter++;
+	if (maze[row-1][col] == ' ') counter++;
+	if (maze[row][col+1] == ' ') counter++;
+	if (maze[row][col-1] == ' ') counter++;
 	return counter;
 }
 
