@@ -26,10 +26,17 @@ public static int bronze(String filename) throws FileNotFoundException {
 		int col_s = line.nextInt();
 		int smash = line.nextInt();
 		field = bronzeHelper (row_s, col_s, smash, field);
-
 	}
 
-	return -1;
+	int totalDepth = 0;
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			if (elevation - field[i][j] > 0) {
+				totalDepth = totalDepth + (elevation - field[i][j]);
+			}
+		}
+	}
+	return totalDepth * 72 * 72;
 }
 
 private static int[][] bronzeHelper (int row, int col, int depth, int[][] board) {
@@ -43,8 +50,6 @@ private static int[][] bronzeHelper (int row, int col, int depth, int[][] board)
 	}
 
 	board[coords[0]][coords[1]] -= depth;
-	printArr(board);
-
 	for (int i = row - 1; i < row + 2; i++) {
 		for (int j = col - 1; j < col + 2; j++) {
 			if (board[i][j] > board[coords[0]][coords[1]]) {
@@ -52,8 +57,6 @@ private static int[][] bronzeHelper (int row, int col, int depth, int[][] board)
 			}
 		}
 	}
-
-	printArr(board);
 	return board;
 }
 
