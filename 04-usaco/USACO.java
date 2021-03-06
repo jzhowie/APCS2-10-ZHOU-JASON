@@ -69,7 +69,10 @@ public static void printArr(int[][] arr) {
 
 public static void printArr(long[][][] arr) {
 	for (int i = 0; i < arr.length; i++) {
-		System.out.println(Arrays.deepToString(arr[i]));
+		for (int j = 0; j < arr[i].length; j++) {
+			System.out.println(Arrays.toString(arr[i][j]));
+		}
+		System.out.println();
 	}
 	System.out.println();
 }
@@ -81,20 +84,60 @@ public static long silver(String filename) throws FileNotFoundException {
 	int rows = line.nextInt();
 	int cols = line.nextInt();
 	int time = line.nextInt();
-	long[][][] field = new long[time][rows][cols];
+	long[][][] field = new long[time+1][rows][cols];
 
 	for (int i = 0; i < rows; i++) {
 		line = new Scanner(scan.nextLine());
 		String temp = line.next();
 		for (int j = 0; j < temp.length(); j++) {
 			if (temp.charAt(j) == '*') {
-				field[0][i][j] = -1;
+				for (int sec = 0; sec < time; sec++) {
+					field[sec][i][j] = -1;
+				}
 			}
 		}
 	}
 
-	field[1][rows-1][cols-1] = 1;
-	printArr(field);
-	return -1;
+	line = new Scanner(scan.nextLine());
+	int startR = line.nextInt();
+	int startC = line.nextInt();
+	int endR = line.nextInt();
+	int endC = line.nextInt();
+
+	field[0][startR-1][startC-1] = 1;
+	for (int sec = 0; sec < time; sec++) {
+		for (int row_t = 0; row_t < rows; row_t++) {
+			for (int col_t = 0; col_t < cols; col_t++) {
+				long temp = silverHelper(row_t, col_t, field[sec]);
+				if (temp > 0) {
+					field[sec+1][row_t][col_t] = temp;
+				}
+			}
+		}
+	}
+	return field[time][endR-1][endC-1];
+}
+
+public static long silverHelper(int row, int col, long[][] board) {
+	long counter = 0;
+	if (board[row][col] == -1) {
+		return -1;
+	}
+	if (board[row][col] != 0) {
+		return 0;
+	}
+	if (col+1 < board[0].length && board[row][col+1] != -1) {
+		counter += board[row][col+1];
+	}
+	if (col-1 >= 0 && board[row][col-1] != -1) {
+		counter += board[row][col-1];
+	}
+	if (row-1 >= 0 && board[row-1][col] != -1) {
+		counter += board[row-1][col];
+	}
+	if (row+1 < board.length && board[row+1][col] != -1) {
+		counter += board[row+1][col];
+	}
+	return counter;
 }
 }
