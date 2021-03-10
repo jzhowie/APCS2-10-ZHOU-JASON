@@ -3,6 +3,9 @@ import java.util.*;
 
 public class Preliminary {
 public static int partition (int[] data, int start, int end) {
+	if (end - start == 0) {
+		return start;
+	}
 	int pivot = (int) (Math.random() * (end + 1 - start)) + start;
 	int first = start + 1;
 	int last = end;
