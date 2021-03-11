@@ -22,8 +22,19 @@ public static int partition (int[] data, int start, int end) {
 			data[first] = temp;
 			last--;
 		}
-		else {
+		else if (data[first] < data[start]) {
 			first++;
+		}
+		else {
+			if (Math.random() < 0.5) {
+				temp = data[last];
+				data[last] = data[first];
+				data[first] = temp;
+				last--;
+			}
+			else {
+				first++;
+			}
 		}
 	}
 
