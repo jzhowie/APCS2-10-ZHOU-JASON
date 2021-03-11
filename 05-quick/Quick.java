@@ -1,6 +1,24 @@
+// DEVELOPMENT TIME:
+// QUICKSELECT -
+// QUICKSORT -
+// TODO:
+// ISSUES:
 public class Quick {
 public static int quickselect(int[] data, int k) {
-	return -1;
+	int start = 0;
+	int end = data.length - 1;
+
+	int index = -1;
+	while (index != k) {
+		index = partition(data, start, end);
+		if (index > k) {
+			end = index - 1;
+		}
+		else {
+			start = index + 1;
+		}
+	}
+	return data[index];
 }
 
 public static void quicksort(int[] data) {
