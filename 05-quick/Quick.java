@@ -1,8 +1,10 @@
 // DEVELOPMENT TIME:
-// QUICKSELECT -
-// QUICKSORT -
+// QUICKSELECT - 20 MIN
+// QUICKSORT - 35 MIN
 // TODO:
 // ISSUES:
+
+import java.util.*;
 public class Quick {
 public static int quickselect(int[] data, int k) {
 	int start = 0;
@@ -22,7 +24,19 @@ public static int quickselect(int[] data, int k) {
 }
 
 public static void quicksort(int[] data) {
+	quicksort(data, 0, data.length - 1);
+}
 
+private static void quicksort(int[] data, int start, int end) {
+	// System.out.println(Arrays.toString(data));
+	// System.out.println("(start " + start + ", end " + end + ")");
+	if (start - end >= 0) return;
+	else {
+		int index = partition(data, start, end);
+		quicksort(data, 0, index - 1);
+		quicksort(data, index + 1, end);
+	}
+	if (start == 0 && end == data.length - 1) return;
 }
 
 private static int partition (int[] data, int start, int end) {
@@ -45,7 +59,6 @@ private static int partition (int[] data, int start, int end) {
 
 	int first = start + 1;
 	int last = end;
-
 
 	int temp = data[start];
 	data[start] = data[pivot];
