@@ -40,23 +40,7 @@ private static void quicksort(int[] data, int start, int end) {
 }
 
 private static int partition (int[] data, int start, int end) {
-	int pivot = 0;
-	if (end - start == 0) {
-		return start;
-	}
-	else if (end - start == 1) {
-		pivot = start;
-	}
-	else {
-		pivot = (int) (Math.random() * (end - start - 2)) + start + 1;
-		if ((data[pivot] < data[end] && data[end] < data[start]) || (data[start] < data[end] && data[end] < data[pivot])) {
-			pivot = end;
-		}
-		else if ((data[pivot] < data[start] && data[start] < data[end]) || (data[end] < data[start] && data[start] < data[pivot])) {
-			pivot = start;
-		}
-	}
-
+	int pivot = (int) (Math.random() * (end + 1 - start)) + start;
 	int first = start + 1;
 	int last = end;
 
