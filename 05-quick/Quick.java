@@ -1,6 +1,3 @@
-// DEVELOPMENT TIME:
-// QUICKSELECT - 20 MIN
-// QUICKSORT - 35 MIN
 // TODO:
 // ISSUES:
 
@@ -28,15 +25,21 @@ public static void quicksort(int[] data) {
 }
 
 private static void quicksort(int[] data, int start, int end) {
-	// System.out.println(Arrays.toString(data));
-	// System.out.println("(start " + start + ", end " + end + ")");
-	if (start - end >= 0) return;
+	if (start == end) return;
 	else {
 		int index = partition(data, start, end);
-		quicksort(data, 0, index - 1);
-		quicksort(data, index + 1, end);
+		if (index == start) {
+			quicksort(data, index + 1, end);
+		}
+		else if (index == end) {
+			quicksort(data, start, index - 1);
+		}
+		else {
+			quicksort(data, start, index - 1);
+			quicksort(data, index + 1, end);
+		}
+		return;
 	}
-	if (start == 0 && end == data.length - 1) return;
 }
 
 private static int partition (int[] data, int start, int end) {
