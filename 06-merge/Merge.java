@@ -5,7 +5,7 @@ public static void mergesort(int[] data) {
 	mergesort(data, temp, 0, data.length - 1);
 }
 
-public static void mergesort(int[] data, int[] temp, int lo, int hi) {
+private static void mergesort(int[] data, int[] temp, int lo, int hi) {
 	if (lo == hi) return;
 	mergesort(data, temp, lo, lo + (hi - lo) / 2);
 	mergesort(data, temp, lo + ((hi - lo) / 2) + 1, hi);
@@ -14,7 +14,7 @@ public static void mergesort(int[] data, int[] temp, int lo, int hi) {
 	if (lo == 0 && hi == data.length) return;
 }
 
-public static void merge(int[] data, int[] temp, int stack1, int stack2, int upper) {
+private static void merge(int[] data, int[] temp, int stack1, int stack2, int upper) {
 	int tempTrack = stack1;
 	int stack1Track = stack1;
 	int stack2Track = stack2;
