@@ -6,13 +6,10 @@ public static void mergesort(int[] data) {
 }
 
 public static void mergesort(int[] data, int[] temp, int lo, int hi) {
-	//System.out.println("(low " + lo + " high " + hi + ")");
 	if (lo == hi) return;
 	mergesort(data, temp, lo, lo + (hi - lo) / 2);
 	mergesort(data, temp, lo + ((hi - lo) / 2) + 1, hi);
-	//System.out.println("(low " + lo +  " mid " +  (lo + ((hi - lo) / 2) + 1) + " high " + hi + ")");
 	merge(data, temp, lo, lo + ((hi - lo) / 2) + 1, hi);
-	//System.out.println(Arrays.toString(temp));
 
 	if (lo == 0 && hi == data.length) return;
 }
@@ -23,8 +20,6 @@ public static void merge(int[] data, int[] temp, int stack1, int stack2, int upp
 	int stack2Track = stack2;
 
 	while (stack1Track < stack2 && stack2Track <= upper) {
-		// System.out.println("(A " + stack1Track + " B " + stack2Track + ")");
-		// System.out.println(Arrays.toString(temp));
 		if (data[stack1Track] >= data[stack2Track]) {
 			temp[tempTrack] = data[stack2Track];
 			stack2Track++;
