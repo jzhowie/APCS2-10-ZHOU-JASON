@@ -64,16 +64,23 @@ public void addLast(E element) { //add resizing
 }
 
 public E removeFirst() {
-	if (start == -1) {
-		return data[size() - 1];
-
-
+	start++;
+	if (start == size()) {
+		start = 0;
 	}
-	return data[0]; //ph
+	E temp = data[start];
+	data[start] = null;
+	return temp;
 }
 
 public E removeLast() {
-	return data[0]; //ph
+	end--;
+	if (end == -1) {
+		end = size() - 1;
+	}
+	E temp = data[end];
+	data[end] = null;
+	return temp;
 }
 
 public E getFirst() {
