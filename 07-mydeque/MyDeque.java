@@ -74,8 +74,10 @@ public void addLast(E element) {
 }
 
 private void resize() {
+	int temp = size * 10;
+	if (temp == 0) temp = 10;
 	@SuppressWarnings("unchecked")
-	E[] d = (E[]) new Object[size*10];
+	E[] d = (E[]) new Object[temp];
 	int index = start + 1;
 	int copyTrack = size() * 10 / 2;
 	start = copyTrack - 1;
