@@ -12,7 +12,7 @@ public MyDeque() {
 	end = 6;
 
 	@SuppressWarnings("unchecked")
-	E[] d = (E[]) new Object[size];
+	E[] d = (E[]) new Object[10];
 	data = d;
 }
 
@@ -49,25 +49,27 @@ public String toString() {
 
 public void addFirst(E element) {
 	if (element == null) throw new NullPointerException();
-	if ((start - end == -1 && data[end] != null) || size() == 0) {
+	if (size() == data.length) {
 		resize();
 	}
 	if (start == -1) {
 		start = data.length - 1;
 	}
 	data[start] = element;
+	size++;
 	start--;
 }
 
 public void addLast(E element) {
 	if (element == null) throw new NullPointerException();
-	if ((end - start == 1 && data[end] != null) || size() == 0) {
+	if (size() == data.length) {
 		resize();
 	}
 	if (end == data.length) {
 		end = 0;
 	}
 	data[end] = element;
+	size++;
 	end++;
 }
 
@@ -86,47 +88,52 @@ private void resize() {
 		copyTrack++;
 	}
 	end = copyTrack;
-	size = size * 10;
 	data = d;
 }
 
 public E removeFirst() {
+	if (size() == 0) throw new NoSuchElementException();
 	start++;
 	if (start == data.length) {
 		start = 0;
 	}
 	E temp = data[start];
+	size--;
 	data[start] = null;
 	return temp;
 }
 
 public E removeLast() {
+	if (size() == 0) throw new NoSuchElementException();
 	end--;
 	if (end == -1) {
 		end = data.length - 1;
 	}
 	E temp = data[end];
+	size--;
 	data[end] = null;
 	return temp;
 }
 
 public E getFirst() {
+	if (size() == 0) throw new NoSuchElementException();
 	// if (start == -1) {
 	// 	return data[0];
 	// }
 	if (start == size() - 1) {
 		return data[0];
 	}
-	return data[start+1]; //ph
+	return data[start+1];
 }
 
 public E getLast() {
+	if (size() == 0) throw new NoSuchElementException();
 	// if (end == size()) {
 	// 	return data[size() - 1];
 	// }
 	if (end == 0) {
 		return data[size() - 1];
 	}
-	return data[end-1]; //ph
+	return data[end-1];
 }
 }
