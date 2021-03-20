@@ -1,5 +1,5 @@
-//TODO: Everyting + exceptions
-//ISSUES: TBD
+//TODO:
+//ISSUES:
 //NOTES: For testing; ensure start and end can wrap around array, check for constant time
 import java.util.*;
 public class MyDeque<E> {
@@ -122,7 +122,7 @@ public E getFirst() {
 	// if (start == -1) {
 	// 	return data[0];
 	// }
-	if (start == size() - 1) {
+	if (start == data.length - 1) {
 		return data[0];
 	}
 	return data[start+1];
@@ -134,7 +134,7 @@ public E getLast() {
 	// 	return data[size() - 1];
 	// }
 	if (end == 0) {
-		return data[size() - 1];
+		return data[data.length - 1];
 	}
 	return data[end-1];
 }
