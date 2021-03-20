@@ -7,7 +7,7 @@ private E[] data;
 private int size, start, end;
 
 public MyDeque() {
-	size = 10;
+	size = 0;
 	start = 5;
 	end = 6;
 
@@ -17,12 +17,12 @@ public MyDeque() {
 }
 
 public MyDeque(int initialCapacity) {
-	size = initialCapacity;
+	size = 0;
 	start = size / 2;
 	end = (size / 2) + 1;
 
 	@SuppressWarnings("unchecked")
-	E[] d = (E[]) new Object[size];
+	E[] d = (E[]) new Object[initialCapacity];
 	data = d;
 }
 
@@ -33,16 +33,12 @@ public int size() {
 public String toString() {
 	String value = "{";
 	int index = start + 1;
-	// if (start == -1) {
-	// 	index = size() - 1;
-	// }
-	System.out.println(index);
-	while (index != end) {
-		if (index == size()) {
+	for (int i = 0; i < size(); i++) {
+		if (index == data.length) {
 			index = 0;
 		}
 		value += data[index];
-		if (index != end - 1) {
+		if (i != size() - 1) {
 			value += ", ";
 		}
 		index++;
@@ -52,22 +48,23 @@ public String toString() {
 }
 
 public void addFirst(E element) {
-	System.out.println("first " + start + ", last" + end);
-	if (start - end == -1 && data[end] != null) {
+	if (element == null) throw new NullPointerException();
+	if ((start - end == -1 && data[end] != null) || size() == 0) {
 		resize();
 	}
 	if (start == -1) {
-		start = size() - 1;
+		start = data.length - 1;
 	}
 	data[start] = element;
 	start--;
 }
 
 public void addLast(E element) {
-	if (end - start == 1 && data[end] != null) {
+	if (element == null) throw new NullPointerException();
+	if ((end - start == 1 && data[end] != null) || size() == 0) {
 		resize();
 	}
-	if (end == size()) {
+	if (end == data.length) {
 		end = 0;
 	}
 	data[end] = element;
@@ -75,18 +72,14 @@ public void addLast(E element) {
 }
 
 private void resize() {
-	int temp = size();
-	size = size() * 10;
 	@SuppressWarnings("unchecked")
-	E[] d = (E[]) new Object[size()];
-	boolean wrap = false;
+	E[] d = (E[]) new Object[size*10];
 	int index = start + 1;
-	int copyTrack = size() / 2;
+	int copyTrack = size() * 10 / 2;
 	start = copyTrack - 1;
-	while (index != end || !(wrap)) {
-		if (index == temp) {
+	for (int i = 0; i < size(); i++) {
+		if (index == data.length) {
 			index = 0;
-			wrap = true;
 		}
 		d[copyTrack] = data[index];
 		index++;
@@ -99,7 +92,7 @@ private void resize() {
 
 public E removeFirst() {
 	start++;
-	if (start == size()) {
+	if (start == data.length) {
 		start = 0;
 	}
 	E temp = data[start];
@@ -110,7 +103,7 @@ public E removeFirst() {
 public E removeLast() {
 	end--;
 	if (end == -1) {
-		end = size() - 1;
+		end = data.length - 1;
 	}
 	E temp = data[end];
 	data[end] = null;
