@@ -8,6 +8,9 @@ private int size, start, end;
 
 public MyDeque() {
 	size = 10;
+	start = size / 2;
+	end = size / 2;
+
 	@SuppressWarnings("unchecked")
 	E[] d = (E[]) new Object[size];
 	data = d;
@@ -15,6 +18,9 @@ public MyDeque() {
 
 public MyDeque(int initialCapacity) {
 	size = initialCapacity;
+	start = size / 2;
+	end = size / 2;
+
 	@SuppressWarnings("unchecked")
 	E[] d = (E[]) new Object[size];
 	data = d;
