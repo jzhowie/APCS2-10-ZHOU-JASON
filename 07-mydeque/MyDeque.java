@@ -1,7 +1,7 @@
 //TODO: Everyting + exceptions
 //ISSUES: TBD
 //NOTES: For testing; ensure start and end can wrap around array, check for constant time
-
+import java.util.*;
 public class MyDeque<E> {
 private E[] data;
 private int size, start, end;
@@ -33,6 +33,10 @@ public int size() {
 public String toString() {
 	String value = "{";
 	int index = start + 1;
+	// if (start == -1) {
+	// 	index = size() - 1;
+	// }
+	System.out.println(index);
 	while (index != end) {
 		if (index == size()) {
 			index = 0;
@@ -47,7 +51,11 @@ public String toString() {
 	return value;
 }
 
-public void addFirst(E element) { // add resizing
+public void addFirst(E element) {
+	System.out.println("first " + start + ", last" + end);
+	if (start - end == -1 && data[end] != null) {
+		resize();
+	}
 	if (start == -1) {
 		start = size() - 1;
 	}
@@ -55,12 +63,38 @@ public void addFirst(E element) { // add resizing
 	start--;
 }
 
-public void addLast(E element) { //add resizing
+public void addLast(E element) {
+	if (end - start == 1 && data[end] != null) {
+		resize();
+	}
 	if (end == size()) {
 		end = 0;
 	}
 	data[end] = element;
 	end++;
+}
+
+private void resize() {
+	int temp = size();
+	size = size() * 10;
+	@SuppressWarnings("unchecked")
+	E[] d = (E[]) new Object[size()];
+	boolean wrap = false;
+	int index = start + 1;
+	int copyTrack = size() / 2;
+	start = copyTrack - 1;
+	while (index != end || !(wrap)) {
+		if (index == temp) {
+			index = 0;
+			wrap = true;
+		}
+		d[copyTrack] = data[index];
+		index++;
+		copyTrack++;
+	}
+	end = copyTrack;
+	size = size * 10;
+	data = d;
 }
 
 public E removeFirst() {
