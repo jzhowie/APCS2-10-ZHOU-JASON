@@ -77,9 +77,9 @@ public E removeLast() {
 }
 
 public E getFirst() {
-	if (start == -1) {
-		return data[size() - 1];
-	}
+	// if (start == -1) {
+	// 	return data[0];
+	// }
 	if (start == size() - 1) {
 		return data[0];
 	}
@@ -87,9 +87,9 @@ public E getFirst() {
 }
 
 public E getLast() {
-	if (end == size()) {
-		return data[size() - 1];
-	}
+	// if (end == size()) {
+	// 	return data[size() - 1];
+	// }
 	if (end == 0) {
 		return data[size() - 1];
 	}
