@@ -10,8 +10,8 @@ public static double eval(String s) {
 			calc.addLast(temp);
 		}
 		catch (Exception NumberFormatException) {
-			Double temp = calc.removeLast();
 			if (calc.size() < 2) throw new IllegalArgumentException("Too few operands");
+			Double temp = calc.removeLast();
 
 			if (g.equals("+")) calc.addLast(calc.removeLast() + temp);
 			else if (g.equals("-")) calc.addLast(calc.removeLast() - temp);
