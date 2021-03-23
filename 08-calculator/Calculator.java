@@ -10,12 +10,13 @@ public static double eval(String s) {
 			calc.addLast(temp);
 		}
 		catch (Exception NumberFormatException) {
-			System.out.println(calc.toString());
-			if (g.equals("+")) calc.addLast(calc.removeLast() + calc.removeLast());
-			else if (g.equals("-")) calc.addLast(calc.removeLast() - calc.removeLast());
-			else if (g.equals("*")) calc.addLast(calc.removeLast() * calc.removeLast());
-			else if (g.equals("/")) calc.addLast(calc.removeLast() / calc.removeLast());
-			else if (g.equals("%")) calc.addLast(calc.removeLast() % calc.removeLast());
+			Double temp = calc.removeLast();
+			if (g.equals("+")) calc.addLast(calc.removeLast() + temp);
+			else if (g.equals("-")) calc.addLast(calc.removeLast() - temp);
+			else if (g.equals("*")) calc.addLast(calc.removeLast() * temp);
+			else if (g.equals("/")) calc.addLast(calc.removeLast() / temp);
+			else if (g.equals("%")) calc.addLast(calc.removeLast() % temp);
+
 		}
 	}
 	return calc.getLast();
