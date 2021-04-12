@@ -56,7 +56,7 @@ public void tick(){
 		for (int j = 0; j < map[i].length; j++) {
 			if (temp[i][j] == 0 && map[i][j] == FIRE) {
 				map[i][j] = ASH;
-				if (j + 1 < map[j].length && map[i][j+1] == TREE) {
+				if (j + 1 < map[0].length && map[i][j+1] == TREE) {
 					map[i][j+1] = FIRE;
 					temp[i][j+1] = 1;
 				}
