@@ -51,7 +51,21 @@ public boolean done(){
 public void tick(){
 	ticks++;
 	//YOU MUST IMPLEMENT THIS
+	for (int i = 0; i < map.length; i++) {
+		for (int j = 0; j < map[i].length; j++) {
+			if (map[i][j] == FIRE) {
+				map[i][j] = ASH;
+				if (j + 1 < map[j].length && map[i][j+1] == TREE) map[i][j+1] = FIRE;
+				if (j - 1 > -1 && map[i][j-1] == TREE) map[i][j-1] = FIRE;
+				if (i + 1 < map.length && map[i+1][j] == TREE) map[i+1][j] = FIRE;
+				if (i - 1 > -1 && map[i-1][j] == TREE) map[i-1][j] = FIRE;
+
+
+			}
+		}
+	}
 }
+
 
 /*
  * Sets the trees in the left column of the forest on fire
