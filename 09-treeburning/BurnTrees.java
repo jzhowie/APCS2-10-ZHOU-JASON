@@ -2,6 +2,7 @@ import java.util.*;
 public class BurnTrees {
 private int[][] map;
 private int ticks;
+private Frontier<int[]> frontier;
 private static int TREE = 2;
 private static int FIRE = 1;
 private static int ASH = 3;
@@ -24,6 +25,7 @@ public int run(){
  */
 public BurnTrees(int width,int height, double density){
 	map = new int[height][width];
+	frontier = new Frontier<int[]>();
 	for(int r=0; r<map.length; r++ )
 		for(int c=0; c<map[r].length; c++ )
 			if(Math.random() < density)
@@ -50,47 +52,38 @@ public boolean done(){
  */
 public void tick(){
 	ticks++;
-	//YOU MUST IMPLEMENT THIS
-	int[][] temp = new int[map.length][map[0].length];
-	for (int i = 0; i < map.length; i++) {
-		for (int j = 0; j < map[i].length; j++) {
-			if (temp[i][j] == 0 && map[i][j] == FIRE) {
-				map[i][j] = ASH;
-				if (j + 1 < map[0].length && map[i][j+1] == TREE) {
-					map[i][j+1] = FIRE;
-					temp[i][j+1] = 1;
-				}
-				if (j - 1 > -1 && map[i][j-1] == TREE) map[i][j-1] = FIRE;
-				if (i + 1 < map.length && map[i+1][j] == TREE) {
-					map[i+1][j] = FIRE;
-					temp[i+1][j] = 1;
-				}
-				if (i - 1 > -1 && map[i-1][j] == TREE) map[i-1][j] = FIRE;
-
-			}
+	int[] location = new int[0];
+	location = frontier.remove();
+	int iterations = frontier.size();
+	while (iterations >= 0) {
+		int x = location[0];
+		int y = location[1];
+		map[x][y] = ASH;
+		if (y + 1 < map[0].length && map[x][y+1] == TREE) {
+			map[x][y+1] = FIRE;
+			int[] temp = {x, y+1};
+			frontier.add(temp);
 		}
+		if (y - 1 > -1 && map[x][y-1] == TREE) {
+			map[x][y-1] = FIRE;
+			int[] temp = {x, y-1};
+			frontier.add(temp);
+		}
+		if (x + 1 < map.length && map[x+1][y] == TREE) {
+			map[x+1][y] = FIRE;
+			int[] temp = {x+1, y};
+			frontier.add(temp);
+		}
+		if (x - 1 > -1 && map[x-1][y] == TREE) {
+			map[x-1][y] = FIRE;
+			int[] temp = {x-1, y};
+			frontier.add(temp);
+		}
+		if (iterations != 0) {
+			location = frontier.remove();
+		}
+		iterations--;
 	}
-	// for (int i = 0; i < map.length; i++) {
-	// 	for (int j = 0; j < map[i].length; j++) {
-	// 		if (map[i][j] == FIRE) {
-	// 			map[i][j] = ASH;
-	// 			if (i - 1 >= 0 && map[i-1][j] == TREE) map[i-1][j] = TREE;
-	// 			if (j - 1 >= 0 && map[i][j-1] == TREE) map[i][j-1] = TREE;
-	// 			if (i + 1 < map.length && map[i+1][j] == TREE) {
-	// 				map[i+1][j] = FIRE;
-	// 				ArrayList<Integer> coord = new ArrayList<Integer>(Arrays.asList(new Integer[] {i+1, j}));
-	// 				temp.add(coord);
-	// 			}
-	// 			if (j + 1 < map[0].length && map[i][j+1] == TREE) {
-	// 				map[i+1][j] = FIRE;
-	// 				ArrayList<Integer> coord = new ArrayList<Integer>(Arrays.asList(new Integer[] {i, j+1}));
-	// 				temp.add(coord);
-	//		}
-
-
-	//	}
-///}
-//	}
 }
 
 
@@ -103,6 +96,8 @@ public void start(){
 	for(int i = 0; i < map.length; i++) {
 		if(map[i][0]==TREE) {
 			map[i][0]=FIRE;
+			int[] temp = {i, 0};
+			frontier.add(temp);
 		}
 	}
 }
