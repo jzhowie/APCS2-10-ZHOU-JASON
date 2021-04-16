@@ -37,12 +37,7 @@ public BurnTrees(int width,int height, double density){
  *@return false if any fires are still burning, true otherwise
  */
 public boolean done(){
-	for (int i = 0; i < map.length; i++) {
-		for (int j = 0; j < map[i].length; j++) {
-			if (map[i][j] == FIRE) return false;
-		}
-	}
-	return true;
+	return frontier.size() == 0;
 }
 
 
@@ -187,9 +182,13 @@ public static void main(String[] args)  throws InterruptedException {
 		DELAY = Integer.parseInt(args[3]);
 	}
 	BurnTrees b = new BurnTrees(WIDTH,HEIGHT,DENSITY);
+	long startTime = System.currentTimeMillis();
+	int ticks = b.run();
+	long endTime = System.currentTimeMillis();
 
+	System.out.println("Executed in " + (endTime-startTime)/1000.0 + " seconds in " + ticks + " ticks.");
 
-	System.out.println(b.animate(DELAY));//animate all screens and print the final answer
+	//System.out.println(b.animate(DELAY));//animate all screens and print the final answer
 	//System.out.println(b.outputAll());//print all screens and the final answer
 }
 
