@@ -13,6 +13,5 @@
 ## More Data Structures
 07-mydeque  
 08-calculator  
-
-## Earth, Wind & Fire
 09-treeburning  
+10-heapsort  
