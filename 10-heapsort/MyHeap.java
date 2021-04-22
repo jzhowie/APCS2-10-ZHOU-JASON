@@ -8,14 +8,15 @@ public class MyHeap {
   }
 
   private static void pushDown(int[] data, int size, int index) {
-    while (index * 2 + 2 < size) {
-      if (data[index] < data[index*2+1] || data[index] < data[index*2+2]) {
-        if (data[index*2+1] < data[index*2+2]) {
+    while (index * 2 + 1 < size) {
+      if (data[index] < data[index*2+1] || (index*2+2 < size && data[index] < data[index*2+2])) {
+        if (index*2+2 < size && data[index*2+1] < data[index*2+2]) {
           int temp = data[index*2+2];
           data[index*2+2] = data[index];
           data[index] = temp;
           index = index*2+2;
         }
+        
         else {
           int temp = data[index*2+1];
           data[index*2+1] = data[index];
