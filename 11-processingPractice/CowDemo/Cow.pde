@@ -30,11 +30,24 @@ public class Cow {
     fill(c);
     ellipse(x, y, radius*2, radius*2);
     
+    if (selected) {
+      fill(0);
+      ellipse(x + (radius / 2), y - (radius / 3), radius/4, radius/4);
+      ellipse(x - (radius / 2), y - (radius / 3), radius/4, radius/4);
+      stroke(0);
+      line(x, y + (radius / 2), x + (radius / 2), y + (radius / 3));
+      line(x, y + (radius / 2), x - (radius / 2), y + (radius / 3));
+      textSize(10);
+      text("SpeedX: "+dx+"\nSpeedY: "+dy, x + (radius + 3), y - (radius / 4));
+    }
+      
   }
 
   void click() {
    //if the mouseX and mouseY are touching this cow, change the cow somehow.
+   if (dist(mouseX, mouseY, x, y) <= radius) {
     selected = !selected;
+   }
 
 }
 }
