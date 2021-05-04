@@ -28,6 +28,9 @@ public class Cow {
     noStroke();
     //stroke(0);
     fill(c);
+    if (colliding) {
+      fill(252, 0, 0, 65);
+    }
     ellipse(x, y, radius*2, radius*2);
     
     if (selected) {
@@ -48,6 +51,15 @@ public class Cow {
    if (dist(mouseX, mouseY, x, y) <= radius) {
     selected = !selected;
    }
-
 }
+
+  void collide(ArrayList<Cow> others) {
+    colliding = false;
+      for (Cow c : others) {
+        if (dist(c.x, c.y, x, y) <= radius + c.radius && c != this) {
+          colliding = true;
+        }
+      }
+   }
+
 }
