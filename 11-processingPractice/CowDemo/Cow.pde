@@ -78,6 +78,9 @@ public class Cow {
    }
    
    void changeSpeed(float dv) {
+     float angle = atan2(-dy, dx);
+     dx += dv * cos(angle);
+     dy += -dv * sin(angle);
    }
 
 }
