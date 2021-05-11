@@ -29,6 +29,7 @@ public class Cow {
     if (x >= width - radius || x <= radius) dx *= -1;
     if (y >= height - radius || y <= radius) dy *= -1;
   }
+  
   void display() {
     noStroke();
     //stroke(0);
@@ -46,7 +47,7 @@ public class Cow {
       line(x, y + (radius / 2), x + (radius / 2), y + (radius / 3));
       line(x, y + (radius / 2), x - (radius / 2), y + (radius / 3));
       textSize(10);
-      text("SpeedX: "+dx+"\nSpeedY: "+dy, x + (radius + 3), y - (radius / 4));
+      text("SpeedX: "+dx+"\nSpeedY: "+dy+"\nMagnitude: "+sqrt(pow(dx,2)+pow(dy,2)), x + (radius + 3), y - (radius / 4));
     }
       
   }
@@ -65,6 +66,18 @@ public class Cow {
           colliding = true;
         }
       }
+   }
+   
+   void turn(float angle) {
+     float newAngle = degrees(atan2(-dy, dx));
+     newAngle = (newAngle + 360 + angle) % 360;
+     
+     float temp = sqrt(pow(dx,2)+pow(dy,2));
+     dx = temp * cos(radians(newAngle));
+     dy = -temp * sin(radians(newAngle));
+   }
+   
+   void changeSpeed(float dv) {
    }
 
 }
