@@ -2,7 +2,7 @@ ArrayList<Cow> particles;
 void setup() {
   size(1000, 800);
   particles = new ArrayList<Cow>();
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 100; i++)
     particles.add(new Cow());
 }
 
@@ -12,6 +12,8 @@ void draw() {
     c.move();
     c.collide(particles);
     c.display();
+    //c.turn(2);
+    //c.changeSpeed(0.1);
   }
   fill(0);
   textSize(20);
@@ -31,5 +33,14 @@ void mousePressed() {
 }
 
 void keyPressed() {
+  //if (keyCode == 67) {
+  //  particles.get(0).changeSpeed(5);
+  //  println(degrees(atan2(-particles.get(0).dy, particles.get(0).dx)));
+  //}
+  //if (keyCode == 68) {
+  //  for (Cow c : particles) {
+  //    c.turn(15);
+  //  }
+  //}
   if (keyCode == 32) particles.clear();
 }
