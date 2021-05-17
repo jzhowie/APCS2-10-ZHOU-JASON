@@ -11,10 +11,22 @@ public class Kernel {
     Calculate the convolution of r/g/b separately, and return that color
   */
   color calcNewColor(PImage img, int x, int y) {
-    if (x - 1 == 0 || y - 1 == 0 || x == img.height - 1 || y == img.width - 1) {
-      return 0;
+    if (x == 0 || y == 0 || x == img.width - 1 || y == img.height - 1) {
+      return color(0, 0, 0);
     }
-    return 255;
+    
+    int red = 0;
+    int green = 0;
+    int blue = 0;
+    
+    for (int i = 0; i < kernel.length; i++) {
+      for (int j = 0; j < kernel[0].length; j++) {
+        red += red(img.get(x-1+j, y-1+i)) * kernel[i][j];
+        green += green(img.get(x-1+j, y-1+i)) * kernel[i][j];
+        blue += blue(img.get(x-1+j, y-1+i)) * kernel[i][j];
+      }
+    }
+    return color(red, green, blue);
     //Hint: start by always returning black.
     //This will let you test your apply method right away!
   }
@@ -24,10 +36,10 @@ public class Kernel {
 
   */
   void apply(PImage source, PImage destination) {
-    float[][] temp = new float[kernel.length][kernel[0].length];
-    for (int i = 0; i < source.width; i++) {
-      for (int j = 0; j < source.height; j++) {
-        calcNewColor(source, i, j);
+    for (int i = 0; i < source.height; i++) {
+      for (int j = 0; j < source.width; j++) {
+        color c = calcNewColor(source, j, i);
+        destination.set(j, i, c);
       }
   }
 
