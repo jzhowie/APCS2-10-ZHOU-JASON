@@ -15,3 +15,7 @@
 08-calculator  
 09-treeburning  
 10-heapsort  
+
+## Processing Intro (for Final Project)
+11-cowDemo  
+12-imageProcessing  
